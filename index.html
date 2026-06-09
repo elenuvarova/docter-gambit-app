@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Mouth Vitals — Docter &amp; Gambit · Interactive Prototype</title>
+  <meta name="description" content="Mouth Vitals — a free, holistic mouth-body companion. Interactive hi-fi prototype for Docter & Gambit (Project DH)." />
+  <meta name="theme-color" content="#0A0F14" />
+  <meta property="og:title" content="Mouth Vitals — interactive prototype" />
+  <meta property="og:description" content="A free, holistic mouth-body companion. Tap through the hi-fi flow." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg" aria-hidden="true"></div>
+
+  <header class="hdr">
+    <div class="brand">
+      <span class="brand__dot" aria-hidden="true"></span>
+      <span class="brand__name">Mouth&nbsp;Vitals</span>
+    </div>
+    <p class="tag">A free, holistic mouth-body companion · <span>Docter&nbsp;&amp;&nbsp;Gambit</span></p>
+  </header>
+
+  <main class="stage">
+    <button class="nav nav--prev" id="prev" aria-label="Previous screen">‹</button>
+
+    <div class="phone" id="phone">
+      <div class="phone__frame">
+        <span class="phone__island" aria-hidden="true"></span>
+        <span class="phone__side phone__side--power" aria-hidden="true"></span>
+        <span class="phone__side phone__side--vol1" aria-hidden="true"></span>
+        <span class="phone__side phone__side--vol2" aria-hidden="true"></span>
+        <div class="phone__screen" id="screen">
+          <img class="screen__img" id="screenImg" src="assets/onboarding.png" alt="App screen" draggable="false" />
+          <div class="hotspots" id="hotspots"></div>
+        </div>
+      </div>
+      <div class="phone__glow" aria-hidden="true"></div>
+    </div>
+
+    <button class="nav nav--next" id="next" aria-label="Next screen">›</button>
+  </main>
+
+  <nav class="rail" id="rail" aria-label="Jump to screen"></nav>
+
+  <footer class="ftr">
+    <span>Tap the <em>glowing</em> areas to navigate</span>
+    <button class="link" id="reset">restart flow</button>
+    <span class="muted">Project DH · hi-fi prototype</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
