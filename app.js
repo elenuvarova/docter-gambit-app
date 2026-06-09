@@ -38,8 +38,12 @@ function preload() { SCREENS.forEach((s) => { const i = new Image(); i.src = s.i
 
 function paint(s) {
   current = s.id;
-  img.src = s.img;
   img.alt = s.label + " screen";
+  const reveal = () => img.classList.remove("is-swapping");
+  img.onload = reveal;
+  img.onerror = reveal;            // a missing/blocked asset never leaves a blank screen
+  img.src = s.img;
+  if (img.complete) requestAnimationFrame(reveal);  // cached images may not fire load
   const idx = order.indexOf(s.id);
   if (stepEl) stepEl.textContent = String(idx + 1).padStart(2, "0") + " / " + String(order.length).padStart(2, "0");
   if (snameEl) snameEl.textContent = s.label;
@@ -53,7 +57,6 @@ function paint(s) {
     b.addEventListener("click", () => { b.classList.add("tap"); render(h.to); });
     hotEl.appendChild(b);
   });
-  requestAnimationFrame(() => img.classList.remove("is-swapping"));
   updateRail();
 }
 
