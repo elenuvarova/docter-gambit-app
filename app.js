@@ -29,17 +29,20 @@ const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 const img = document.getElementById("screenImg");
 const hotEl = document.getElementById("hotspots");
 const railEl = document.getElementById("rail");
+const stepEl = document.getElementById("step");
+const snameEl = document.getElementById("sname");
 let current = null;
 let pending = null;
 
 function preload() { SCREENS.forEach((s) => { const i = new Image(); i.src = s.img; }); }
 
-// paint() is the single place that mutates `current` + the DOM, so an aborted
-// transition can never leave state ahead of what's on screen.
 function paint(s) {
   current = s.id;
   img.src = s.img;
   img.alt = s.label + " screen";
+  const idx = order.indexOf(s.id);
+  if (stepEl) stepEl.textContent = String(idx + 1).padStart(2, "0") + " / " + String(order.length).padStart(2, "0");
+  if (snameEl) snameEl.textContent = s.label;
   hotEl.replaceChildren();
   s.hotspots.forEach((h) => {
     const b = document.createElement("button");
@@ -57,19 +60,18 @@ function paint(s) {
 function render(id) {
   const s = byId(id);
   if (!s) return;
-  if (pending) { clearTimeout(pending); pending = null; }   // cancel any in-flight swap
+  if (pending) { clearTimeout(pending); pending = null; }
   if (reduce) { paint(s); return; }
   img.classList.add("is-swapping");
   pending = setTimeout(() => { pending = null; paint(s); }, 150);
 }
 
 function buildRail() {
-  SCREENS.forEach((s, i) => {
+  SCREENS.forEach((s) => {
     const t = document.createElement("button");
     t.className = "thumb";
     t.dataset.id = s.id;
     t.title = s.label;
-    t.style.animationDelay = (0.35 + i * 0.06) + "s";
     const im = document.createElement("img");
     im.src = s.img; im.alt = ""; im.loading = "lazy";
     t.appendChild(im);
@@ -99,21 +101,19 @@ document.addEventListener("keydown", (e) => {
 });
 
 // Subtle 3D pointer tilt on the phone (pointer devices only, respects reduced-motion)
-const stage = document.querySelector(".stage");
 const frame = document.querySelector(".phone__frame");
-if (!reduce && stage && frame) {
+if (!reduce && frame) {
   let raf = 0;
-  stage.addEventListener("pointermove", (e) => {
+  window.addEventListener("pointermove", (e) => {
     if (e.pointerType === "touch") return;
-    const r = stage.getBoundingClientRect();
-    const px = (e.clientX - r.left) / r.width - 0.5;
-    const py = (e.clientY - r.top) / r.height - 0.5;
+    const px = e.clientX / window.innerWidth - 0.5;
+    const py = e.clientY / window.innerHeight - 0.5;
     if (raf) cancelAnimationFrame(raf);
     raf = requestAnimationFrame(() => {
-      frame.style.transform = `rotateY(${px * 7}deg) rotateX(${-py * 7}deg)`;
+      frame.style.transform = `rotateY(${px * 6}deg) rotateX(${-py * 6}deg)`;
     });
   });
-  stage.addEventListener("pointerleave", () => { frame.style.transform = ""; });
+  window.addEventListener("pointerleave", () => { frame.style.transform = ""; });
 }
 
 preload();
