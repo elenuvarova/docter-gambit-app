@@ -6,70 +6,56 @@
   --mint:#34E1C4;
   --mint-soft:rgba(52,225,196,.16);
   --text:#EAF2F1;
-  --muted:#8A9BA8;
+  --muted:#A4B4C0;
   --phone-w:min(360px, 84vw);
   --radius-screen:46px;
   --radius-frame:60px;
+  --ease:cubic-bezier(.22,.61,.36,1);
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
 html,body{height:100%}
 body{
-  min-height:100dvh;
-  background:var(--bg);
-  color:var(--text);
-  display:flex;flex-direction:column;align-items:center;
-  overflow-x:hidden;
+  min-height:100dvh;background:var(--bg);color:var(--text);
+  display:flex;flex-direction:column;align-items:center;overflow-x:hidden;
   padding:max(20px,env(safe-area-inset-top)) 16px max(16px,env(safe-area-inset-bottom));
 }
-.bg{
-  position:fixed;inset:0;z-index:0;pointer-events:none;
+.bg{position:fixed;inset:0;z-index:0;pointer-events:none;
   background:
     radial-gradient(60% 50% at 50% 8%, rgba(52,225,196,.14), transparent 70%),
     radial-gradient(50% 40% at 85% 90%, rgba(124,140,248,.10), transparent 70%),
-    radial-gradient(40% 30% at 10% 80%, rgba(52,225,196,.06), transparent 70%);
-}
-.hdr{position:relative;z-index:1;text-align:center;margin:8px 0 18px}
+    radial-gradient(40% 30% at 10% 80%, rgba(52,225,196,.06), transparent 70%);}
+
+.hdr{position:relative;z-index:1;text-align:center;margin:8px 0 18px;opacity:0;animation:fadeDown .7s .05s var(--ease) forwards}
 .brand{display:inline-flex;align-items:center;gap:10px;font-weight:700;font-size:clamp(20px,5vw,26px);letter-spacing:-.02em}
-.brand__dot{width:14px;height:14px;border-radius:50%;background:var(--mint);box-shadow:0 0 18px 2px var(--mint)}
+.brand__dot{width:14px;height:14px;border-radius:50%;background:var(--mint);box-shadow:0 0 18px 2px var(--mint);animation:dot 3s ease-in-out infinite}
 .brand__name{background:linear-gradient(180deg,#fff,#cfe9e4);-webkit-background-clip:text;background-clip:text;color:transparent}
 .tag{margin-top:6px;color:var(--muted);font-size:clamp(12px,3.4vw,14px)}
 .tag span{color:var(--text)}
 
-.stage{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;gap:clamp(8px,3vw,28px);width:100%}
+.stage{position:relative;z-index:1;flex:1;display:flex;align-items:center;justify-content:center;
+  gap:clamp(8px,3vw,28px);width:100%;perspective:1400px}
 
-.phone{position:relative}
+.phone{position:relative;opacity:0;animation:riseIn .9s .12s var(--ease) forwards}
 .phone__glow{position:absolute;inset:-12% -8%;z-index:-1;border-radius:50%;
-  background:radial-gradient(closest-side,var(--mint-soft),transparent 75%);filter:blur(8px)}
+  background:radial-gradient(closest-side,var(--mint-soft),transparent 75%);filter:blur(8px);
+  animation:glowBreathe 6s ease-in-out infinite}
 .phone__frame{
-  position:relative;
-  width:calc(var(--phone-w) + 24px);
-  aspect-ratio:426 / 898;
+  position:relative;width:calc(var(--phone-w) + 24px);padding:12px;
   border-radius:var(--radius-frame);
-  padding:12px;
-  background:
-    linear-gradient(145deg,#2c333a,#0d1116 40%,#171c22 60%,#3a424a);
-  box-shadow:
-    0 1px 0 rgba(255,255,255,.10) inset,
-    0 0 0 2px #05080b,
-    0 40px 80px -20px rgba(0,0,0,.8),
-    0 10px 30px -10px rgba(0,0,0,.7);
-}
-.phone__screen{
-  position:relative;width:100%;height:100%;
-  border-radius:var(--radius-screen);
-  overflow:hidden;background:var(--ink);
-  box-shadow:0 0 0 2px #000 inset;
-}
+  background:linear-gradient(145deg,#2c333a,#0d1116 40%,#171c22 60%,#3a424a);
+  box-shadow:0 1px 0 rgba(255,255,255,.10) inset,0 0 0 2px #05080b,
+    0 40px 80px -20px rgba(0,0,0,.8),0 10px 30px -10px rgba(0,0,0,.7);
+  transition:transform .28s var(--ease);will-change:transform;transform-style:preserve-3d}
+.phone__screen{position:relative;width:100%;aspect-ratio:402/874;border-radius:var(--radius-screen);
+  overflow:hidden;background:var(--ink);box-shadow:0 0 0 2px #000 inset}
 .screen__img{display:block;width:100%;height:100%;object-fit:cover;user-select:none;
-  transition:opacity .26s ease, transform .26s ease}
-.screen__img.is-swapping{opacity:0;transform:scale(1.012)}
+  transition:opacity .26s ease,transform .26s ease,filter .26s ease}
+.screen__img.is-swapping{opacity:0;transform:scale(1.02);filter:blur(7px)}
 
-.phone__island{
-  position:absolute;top:16px;left:50%;transform:translateX(-50%);
+.phone__island{position:absolute;top:16px;left:50%;transform:translateX(-50%);
   width:34%;height:3.4%;min-height:26px;background:#000;border-radius:20px;z-index:3;
-  box-shadow:0 0 0 1px rgba(255,255,255,.04)
-}
+  box-shadow:0 0 0 1px rgba(255,255,255,.04)}
 .phone__side{position:absolute;background:#23282e;border-radius:3px;z-index:0}
 .phone__side--power{right:-3px;top:30%;width:3px;height:11%}
 .phone__side--vol1{left:-3px;top:24%;width:3px;height:7%}
@@ -77,23 +63,21 @@ body{
 
 .hotspots{position:absolute;inset:0;z-index:4}
 .hotspot{position:absolute;border-radius:14px;cursor:pointer;border:1.5px solid transparent;
-  background:transparent;transition:border-color .2s, background .2s, box-shadow .2s;
+  background:transparent;transition:border-color .2s,background .2s,box-shadow .2s;
   animation:pulse 2.4s ease-in-out infinite}
-.hotspot::after{content:"";position:absolute;inset:0;border-radius:inherit}
 .hotspot:hover,.hotspot:focus-visible{border-color:var(--mint);background:var(--mint-soft);
   box-shadow:0 0 18px -2px var(--mint);outline:none}
-@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(52,225,196,.0)}50%{box-shadow:0 0 0 3px rgba(52,225,196,.18)}}
 .hotspot.tap{animation:tap .4s ease}
-@keyframes tap{0%{transform:scale(1)}40%{transform:scale(.97)}100%{transform:scale(1)}}
 
 .nav{width:46px;height:46px;border-radius:50%;border:1px solid var(--surface2);
   background:rgba(18,26,33,.7);backdrop-filter:blur(8px);color:var(--text);
   font-size:26px;line-height:1;cursor:pointer;flex:none;display:grid;place-items:center;
-  transition:border-color .2s,background .2s,transform .1s}
+  transition:border-color .2s,background .2s,transform .1s,color .2s}
 .nav:hover{border-color:var(--mint);color:var(--mint)}
 .nav:active{transform:scale(.94)}
 
-.rail{position:relative;z-index:1;display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;justify-content:center}
+.rail{position:relative;z-index:1;display:flex;gap:10px;margin-top:20px;flex-wrap:wrap;justify-content:center;
+  opacity:0;animation:riseIn .8s .3s var(--ease) forwards}
 .thumb{width:46px;aspect-ratio:402/874;border-radius:9px;overflow:hidden;cursor:pointer;
   border:2px solid transparent;background:var(--surface);opacity:.55;
   transition:opacity .2s,border-color .2s,transform .15s}
@@ -102,11 +86,27 @@ body{
 .thumb.active{opacity:1;border-color:var(--mint);box-shadow:0 0 14px -3px var(--mint)}
 
 .ftr{position:relative;z-index:1;margin-top:18px;color:var(--muted);font-size:12.5px;
-  display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center;text-align:center}
+  display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:center;text-align:center;
+  opacity:0;animation:fadeDown .7s .42s ease forwards}
 .ftr em{color:var(--mint);font-style:normal}
-.ftr .muted{opacity:.7}
+.ftr .muted{color:#8d9aa6}
+.ftr kbd{font:inherit;border:1px solid var(--surface2);border-radius:5px;padding:0 5px;color:var(--text)}
 .link{background:none;border:none;color:var(--mint);cursor:pointer;font:inherit;text-decoration:underline;padding:0}
 .link:hover{opacity:.8}
 
+.nav:focus-visible,.thumb:focus-visible,.link:focus-visible{outline:2px solid var(--mint);outline-offset:3px}
+
+@keyframes riseIn{from{opacity:0;transform:translateY(28px) scale(.985)}to{opacity:1;transform:none}}
+@keyframes fadeDown{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
+@keyframes glowBreathe{0%,100%{opacity:.7;transform:scale(1)}50%{opacity:1;transform:scale(1.06)}}
+@keyframes dot{0%,100%{box-shadow:0 0 18px 2px var(--mint)}50%{box-shadow:0 0 26px 5px var(--mint)}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(52,225,196,0)}50%{box-shadow:0 0 0 3px rgba(52,225,196,.18)}}
+@keyframes tap{0%{transform:scale(1)}40%{transform:scale(.97)}100%{transform:scale(1)}}
+
 @media (max-height:760px){:root{--phone-w:min(300px,72vw)}}
 @media (max-width:520px){.nav{display:none}}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .hdr,.phone,.rail,.ftr{opacity:1!important;animation:none!important}
+  .phone__frame{transform:none!important}
+}
