@@ -40,7 +40,7 @@ body{
 
 /* ---- intro / copy ---- */
 .brand{display:inline-flex;align-items:center;gap:9px;font-weight:600;font-size:14px;letter-spacing:.02em;color:var(--text)}
-.brand__dot{width:11px;height:11px;border-radius:50%;background:var(--mint);box-shadow:0 0 16px 1px var(--mint);animation:dot 3s ease-in-out infinite}
+.brand__mark{width:22px;height:22px;display:block;filter:drop-shadow(0 0 9px rgba(91,233,208,.45));animation:dot 3s ease-in-out infinite}
 .title{margin:14px 0 12px;font-weight:800;letter-spacing:-.025em;line-height:1.04;font-size:clamp(30px,4.6vw,48px);color:var(--text)}
 .title span{color:var(--mint)}
 .lede{color:var(--muted);font-size:clamp(15px,1.6vw,18px);max-width:42ch}

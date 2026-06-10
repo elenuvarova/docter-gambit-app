@@ -1,24 +1,28 @@
 // Mouth Vitals — interactive prototype navigation
+// Bump ASSET_V whenever the screen PNGs change so browsers fetch fresh art
+// (nginx caches png/js for 7d; the query string busts that cache).
+const ASSET_V = "9";
+const v = (p) => `${p}?v=${ASSET_V}`;
 const SCREENS = [
-  { id: "onboarding", img: "assets/onboarding.png", label: "Onboarding",
+  { id: "onboarding", img: v("assets/onboarding.png"), label: "Onboarding",
     hotspots: [{ l: 4.98, t: 84.7, w: 90.0, h: 6.4, to: "score", name: "Start scan" }] },
-  { id: "score", img: "assets/score.png", label: "Score",
+  { id: "score", img: v("assets/score.png"), label: "Score",
     hotspots: [
       { l: 4.98, t: 56.1, w: 42.5, h: 11.0, to: "mouthbody", name: "Gums" },
       { l: 52.5, t: 56.1, w: 42.5, h: 11.0, to: "breath", name: "Breath" },
       { l: 4.98, t: 81.7, w: 90.0, h: 6.4, to: "today", name: "See today's fix" },
     ] },
-  { id: "mouthbody", img: "assets/mouthbody.png", label: "Mouth-body",
+  { id: "mouthbody", img: v("assets/mouthbody.png"), label: "Mouth-body",
     hotspots: [
       { l: 4.0, t: 7.2, w: 26.0, h: 4.6, to: "score", name: "Back" },
       { l: 4.98, t: 84.7, w: 90.0, h: 6.4, to: "today", name: "See my 20-sec fix" },
     ] },
-  { id: "breath", img: "assets/breath.png", label: "Breath",
+  { id: "breath", img: v("assets/breath.png"), label: "Breath",
     hotspots: [
       { l: 4.0, t: 7.2, w: 26.0, h: 4.6, to: "score", name: "Back" },
       { l: 4.98, t: 84.7, w: 90.0, h: 6.4, to: "score", name: "Check now" },
     ] },
-  { id: "today", img: "assets/today.png", label: "Today",
+  { id: "today", img: v("assets/today.png"), label: "Today",
     hotspots: [{ l: 4.98, t: 46.0, w: 90.0, h: 10.3, to: "breath", name: "Brush with Max" }] },
 ];
 
