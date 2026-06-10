@@ -7,22 +7,22 @@
   <meta name="description" content="Mouth Vitals — a free, holistic mouth-body companion. Interactive hi-fi prototype for Docter & Gambit (Project DH)." />
   <meta name="theme-color" content="#070A0E" />
   <meta name="color-scheme" content="dark" />
-  <link rel="icon" href="assets/icon.svg?v=9" />
-  <link rel="apple-touch-icon" href="assets/icon.svg?v=9" />
+  <link rel="icon" href="assets/icon.svg?v=10" />
+  <link rel="apple-touch-icon" href="assets/icon.svg?v=10" />
   <meta property="og:type" content="website" />
   <meta property="og:title" content="Mouth Vitals — interactive prototype" />
   <meta property="og:description" content="A free, holistic mouth-body companion. Tap through the hi-fi flow." />
   <meta property="og:url" content="https://docter-gambit-app.ontwrpn.com/" />
   <meta property="og:image" content="https://docter-gambit-app.ontwrpn.com/assets/score.png" />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="stylesheet" href="styles.css?v=9" />
+  <link rel="stylesheet" href="styles.css?v=10" />
 </head>
 <body>
   <div class="bg" aria-hidden="true"></div>
 
   <main class="hero">
     <header class="intro">
-      <div class="brand"><img class="brand__mark" src="assets/mark.svg?v=9" alt="" aria-hidden="true" /> Mouth Vitals</div>
+      <div class="brand"><img class="brand__mark" src="assets/mark.svg?v=10" alt="" aria-hidden="true" /> Mouth Vitals</div>
       <h1 class="title">Dental care, reframed as a <span>relationship</span>.</h1>
       <p class="lede">A free, holistic mouth-body companion for Docter &amp; Gambit. Tap through the interactive hi-fi prototype.</p>
       <ul class="chips" aria-label="Highlights">
@@ -41,7 +41,7 @@
           <span class="phone__side phone__side--vol1" aria-hidden="true"></span>
           <span class="phone__side phone__side--vol2" aria-hidden="true"></span>
           <div class="phone__screen">
-            <img class="screen__img" id="screenImg" src="assets/onboarding.png?v=9" alt="App screen"
+            <img class="screen__img" id="screenImg" src="assets/onboarding.png?v=10" alt="App screen"
                  width="402" height="874" decoding="async" fetchpriority="high" draggable="false" />
             <div class="hotspots" id="hotspots"></div>
           </div>
@@ -50,18 +50,19 @@
       </div>
     </div>
 
-    <div class="controls">
-      <p class="screenmeta" aria-live="polite" aria-atomic="true"><span class="step" id="step">01 / 05</span><span class="sep" aria-hidden="true">·</span><span class="sname" id="sname">Onboarding</span></p>
+    <div class="controls" role="group" aria-label="Prototype controls">
+      <p class="screenmeta"><span class="step" id="step">01 / 05</span><span class="sep" aria-hidden="true">·</span><span class="sname" id="sname">Onboarding</span></p>
+      <span id="live" class="sr-only" aria-live="polite" aria-atomic="true"></span>
       <div class="navrow">
-        <button class="nav" id="prev" aria-label="Previous screen">‹</button>
+        <button class="nav" id="prev" aria-label="Previous screen" aria-keyshortcuts="ArrowLeft">‹</button>
         <nav class="rail" id="rail" aria-label="Jump to screen"></nav>
-        <button class="nav" id="next" aria-label="Next screen">›</button>
+        <button class="nav" id="next" aria-label="Next screen" aria-keyshortcuts="ArrowRight">›</button>
       </div>
       <p class="hint">Tap the <em>glowing</em> areas<span class="kbd-hint"> · <kbd>←</kbd> <kbd>→</kbd> to move</span> · <button class="link" id="reset" aria-label="Restart the flow">restart</button></p>
       <p class="meta">Docter &amp; Gambit · Project DH · hi-fi prototype</p>
     </div>
   </main>
 
-  <script src="app.js?v=9"></script>
+  <script src="app.js?v=10"></script>
 </body>
 </html>
