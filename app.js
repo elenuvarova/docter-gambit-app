@@ -1,7 +1,7 @@
 // Mouth Vitals — interactive prototype navigation
 // Bump ASSET_V whenever the screen PNGs change so browsers fetch fresh art
 // (nginx caches png/js for 7d; the query string busts that cache).
-const ASSET_V = "17";
+const ASSET_V = "18";
 const v = (p) => `${p}?v=${ASSET_V}`;
 const SCREENS = [
   { id: "onboarding", img: v("assets/onboarding.png"), label: "Onboarding",
@@ -10,25 +10,25 @@ const SCREENS = [
   { id: "score", img: v("assets/score.png"), label: "Score",
     alt: "Home screen: your Mouth Vitals score is 82 out of 100, shown as a progress ring. Cards: Gums healthy, Breath fresh. Primary action: see today's fix.",
     hotspots: [
-      { l: 4.98, t: 56.1, w: 42.5, h: 11.0, to: "mouthbody", name: "Open Gums detail" },
-      { l: 52.5, t: 56.1, w: 42.5, h: 11.0, to: "breath", name: "Open Breath detail" },
+      { l: 4.98, t: 55.6, w: 42.5, h: 11.0, to: "mouthbody", name: "Open Gums detail" },
+      { l: 52.5, t: 55.6, w: 42.5, h: 11.0, to: "breath", name: "Open Breath detail" },
       { l: 4.98, t: 81.7, w: 90.0, h: 6.4, to: "today", name: "See today's fix" },
     ] },
   { id: "mouthbody", img: v("assets/mouthbody.png"), label: "Mouth-body",
     alt: "Education screen: your gums and your whole body — a diagram linking gums to the heart. 47 percent of adults 30 and older have gum disease. Primary action: see my 20-second fix.",
     hotspots: [
-      { l: 4.0, t: 7.2, w: 26.0, h: 4.6, to: "score", name: "Back to score" },
+      { l: 3.0, t: 7.3, w: 19.0, h: 4.0, to: "score", name: "Back to score" },  // hugs the "‹ Back" label (x20 y72 w~60 h19 in the 402×874 art)
       { l: 4.98, t: 84.7, w: 90.0, h: 6.4, to: "today", name: "See my 20-sec fix" },
     ] },
   { id: "breath", img: v("assets/breath.png"), label: "Breath",
     alt: "Breath check screen: result is Fresh, shown as a ring. Primary action: check now.",
     hotspots: [
-      { l: 4.0, t: 7.2, w: 26.0, h: 4.6, to: "score", name: "Back to score" },
+      { l: 3.0, t: 7.3, w: 19.0, h: 4.0, to: "score", name: "Back to score" },  // hugs the "‹ Back" label (x20 y72 w~60 h19 in the 402×874 art)
       { l: 4.98, t: 84.7, w: 90.0, h: 6.4, to: "score", name: "Check now" },
     ] },
   { id: "today", img: v("assets/today.png"), label: "Today",
     alt: "Today screen: your daily streak and today's 20-second fix — floss the back-left where your gums flag. Primary action: brush with Max.",
-    hotspots: [{ l: 4.98, t: 46.0, w: 90.0, h: 10.3, to: "breath", name: "Brush with Max" }] },
+    hotspots: [{ l: 4.98, t: 45.5, w: 90.0, h: 10.3, to: "breath", name: "Brush with Max" }] },
 ];
 
 const byId = (id) => SCREENS.find((s) => s.id === id);
