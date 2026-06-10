@@ -8,7 +8,7 @@
   --text:#EAF2F1;
   --muted:#9DAEBB;
   --dim:#8A98A3;
-  --ph:clamp(420px, 64dvh, 640px);          /* phone SCREEN height — dvh fits real mobile viewports */
+  --ph:clamp(320px, min(64dvh, 100vw), 620px); /* scales smoothly with BOTH viewport height & width — no breakpoint jumps */
   --radius-screen:42px;
   --radius-frame:54px;
   --ease:cubic-bezier(.22,.61,.36,1);
@@ -102,9 +102,8 @@ body{
   .lede{max-width:48ch}
   .chips,.navrow{justify-content:center}
   .hint .kbd-hint{display:none}
-  :root{--ph:clamp(360px,54dvh,520px)}
 }
-@media (max-width:380px){:root{--ph:clamp(320px,48dvh,440px)}}
+/* --ph is now a single continuous formula (above) — no per-breakpoint phone-size jumps */
 
 /* ---- keyframes (content visible by default; these only enhance) ---- */
 @keyframes rise{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
