@@ -69,7 +69,7 @@ body{
 .hotspots{position:absolute;inset:0;z-index:4}
 .hotspot{position:absolute;min-width:24px;min-height:26px;border-radius:12px;cursor:pointer;border:1.5px solid transparent;background:transparent;
   transition:border-color .2s,background .2s,box-shadow .2s;animation:pulse 2.6s ease-in-out infinite}
-.hotspot:hover,.hotspot:focus-visible{border-color:var(--mint);background:var(--mint-soft);box-shadow:0 0 18px -2px var(--mint);outline:none}
+.hotspot:hover,.hotspot:focus-visible{border-color:var(--mint);background:var(--mint-soft);box-shadow:0 0 18px -2px var(--mint);outline:2px solid transparent}
 .hotspot.tap{animation:tap .4s ease}
 
 /* ---- controls ---- */
@@ -101,8 +101,8 @@ body{
   .intro,.controls{align-self:auto}
   .lede{max-width:48ch}
   .chips,.navrow{justify-content:center}
-  .hint .kbd-hint{display:none}
 }
+@media (pointer:coarse){ .hint .kbd-hint{display:none} } /* hide by input type, not width — zoomed-in laptop users keep the kbd hint */
 /* --ph is now a single continuous formula (above) — no per-breakpoint phone-size jumps */
 
 /* ---- keyframes (content visible by default; these only enhance) ---- */

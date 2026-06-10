@@ -1,7 +1,7 @@
 // Mouth Vitals — interactive prototype navigation
 // Bump ASSET_V whenever the screen PNGs change so browsers fetch fresh art
 // (nginx caches png/js for 7d; the query string busts that cache).
-const ASSET_V = "16";
+const ASSET_V = "17";
 const v = (p) => `${p}?v=${ASSET_V}`;
 const SCREENS = [
   { id: "onboarding", img: v("assets/onboarding.png"), label: "Onboarding",
@@ -61,6 +61,7 @@ function paint(s) {
   if (liveEl) liveEl.textContent = `Screen ${idx + 1} of ${order.length}: ${s.label}`;
   hotEl.setAttribute("role", "group");
   hotEl.setAttribute("aria-label", `Actions on the ${s.label} screen`);
+  const hadFocus = hotEl.contains(document.activeElement); // rebuilding drops focus to <body> otherwise
   hotEl.replaceChildren();
   s.hotspots.forEach((h) => {
     const b = document.createElement("button");
@@ -71,6 +72,7 @@ function paint(s) {
     b.addEventListener("click", () => { b.classList.add("tap"); render(h.to); });
     hotEl.appendChild(b);
   });
+  if (hadFocus) { const first = hotEl.querySelector(".hotspot"); if (first) first.focus(); }
   updateRail();
 }
 
@@ -114,6 +116,7 @@ document.getElementById("next").addEventListener("click", () => step(1));
 document.getElementById("prev").addEventListener("click", () => step(-1));
 document.getElementById("reset").addEventListener("click", () => render("onboarding"));
 document.addEventListener("keydown", (e) => {
+  if (e.altKey || e.ctrlKey || e.metaKey) return;       // leave browser shortcuts (Alt+Left = Back) alone
   const t = e.target;                                   // don't hijack arrows from a focused field
   if (t && (/^(input|textarea|select)$/i.test(t.tagName) || t.isContentEditable)) return;
   if (e.key === "ArrowRight") step(1);
@@ -133,7 +136,10 @@ if (!reduce && frame) {
       frame.style.transform = `rotateY(${px * 6}deg) rotateX(${-py * 6}deg)`;
     });
   });
-  window.addEventListener("pointerleave", () => { frame.style.transform = ""; });
+  window.addEventListener("pointerleave", () => {
+    if (raf) { cancelAnimationFrame(raf); raf = 0; }    // a queued tick would re-tilt after the reset
+    frame.style.transform = "";
+  });
 }
 
 preload();
