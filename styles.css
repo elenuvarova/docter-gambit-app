@@ -51,21 +51,23 @@ body{
 .phone{position:relative;display:inline-block}
 .phone__glow{position:absolute;inset:-14% -10%;z-index:-1;border-radius:50%;
   background:radial-gradient(closest-side,var(--mint-soft),transparent 75%);filter:blur(10px);animation:glowBreathe 6s ease-in-out infinite}
+/* Every dimension below is in em where 1em = --ph (set on .phone__frame), so bezel,
+   corners, island and side buttons all scale as ONE piece — proportions never drift. */
 .phone__frame{
-  position:relative;display:inline-block;padding:11px;border-radius:var(--radius-frame);
+  position:relative;display:inline-block;font-size:var(--ph);padding:.0172em;border-radius:.084em;
   background:linear-gradient(145deg,#2c333a,#0d1116 40%,#171c22 60%,#3a424a);
-  box-shadow:0 1px 0 rgba(255,255,255,.10) inset,0 0 0 2px #05080b,0 50px 90px -25px rgba(0,0,0,.85),0 14px 34px -12px rgba(0,0,0,.7);
+  box-shadow:0 .0016em 0 rgba(255,255,255,.10) inset,0 0 0 .0031em #05080b,0 .078em .141em -.039em rgba(0,0,0,.85),0 .022em .053em -.019em rgba(0,0,0,.7);
   transition:transform .3s var(--ease);will-change:transform;transform-style:preserve-3d}
 .phone__screen{position:relative;height:var(--ph);aspect-ratio:402/874;width:auto;
-  border-radius:var(--radius-screen);overflow:hidden;background:var(--ink);box-shadow:0 0 0 2px #000 inset}
+  border-radius:.066em;overflow:hidden;background:var(--ink);box-shadow:0 0 0 .0031em #000 inset}
 .screen__img{display:block;width:100%;height:100%;object-fit:cover;user-select:none;
   transition:opacity .26s ease,transform .26s ease,filter .26s ease}
 .screen__img.is-swapping{opacity:0;transform:scale(1.02);filter:blur(7px)}
-.phone__island{position:absolute;top:13px;left:50%;transform:translateX(-50%);width:32%;height:26px;background:#000;border-radius:20px;z-index:3;box-shadow:0 0 0 1px rgba(255,255,255,.04)}
-.phone__side{position:absolute;background:#23282e;border-radius:3px;z-index:0}
-.phone__side--power{right:-3px;top:30%;width:3px;height:11%}
-.phone__side--vol1{left:-3px;top:24%;width:3px;height:7%}
-.phone__side--vol2{left:-3px;top:34%;width:3px;height:11%}
+.phone__island{position:absolute;top:.020em;left:50%;transform:translateX(-50%);width:32%;height:.041em;background:#000;border-radius:.031em;z-index:3;box-shadow:0 0 0 .0016em rgba(255,255,255,.04)}
+.phone__side{position:absolute;background:#23282e;border-radius:.0047em;z-index:0}
+.phone__side--power{right:-.0047em;top:30%;width:.0047em;height:11%}
+.phone__side--vol1{left:-.0047em;top:24%;width:.0047em;height:7%}
+.phone__side--vol2{left:-.0047em;top:34%;width:.0047em;height:11%}
 .hotspots{position:absolute;inset:0;z-index:4}
 .hotspot{position:absolute;min-width:24px;min-height:26px;border-radius:12px;cursor:pointer;border:1.5px solid transparent;background:transparent;
   transition:border-color .2s,background .2s,box-shadow .2s;animation:pulse 2.6s ease-in-out infinite}
