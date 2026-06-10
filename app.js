@@ -1,7 +1,7 @@
 // Mouth Vitals — interactive prototype navigation
 // Bump ASSET_V whenever the screen PNGs change so browsers fetch fresh art
 // (nginx caches png/js for 7d; the query string busts that cache).
-const ASSET_V = "13";
+const ASSET_V = "14";
 const v = (p) => `${p}?v=${ASSET_V}`;
 const SCREENS = [
   { id: "onboarding", img: v("assets/onboarding.png"), label: "Onboarding",

@@ -9,8 +9,6 @@
   --muted:#9DAEBB;
   --dim:#8A98A3;
   --ph:clamp(320px, min(64dvh, 100vw), 620px); /* scales smoothly with BOTH viewport height & width — no breakpoint jumps */
-  --radius-screen:42px;
-  --radius-frame:54px;
   --ease:cubic-bezier(.22,.61,.36,1);
   font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display","Segoe UI",Roboto,Helvetica,Arial,sans-serif;
 }
