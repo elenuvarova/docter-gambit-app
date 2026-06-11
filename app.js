@@ -1,7 +1,7 @@
 // Mouth Vitals — interactive prototype navigation
 // Bump ASSET_V whenever the screen PNGs change so browsers fetch fresh art
 // (nginx caches png/js for 7d; the query string busts that cache).
-const ASSET_V = "18";
+const ASSET_V = "19";
 const v = (p) => `${p}?v=${ASSET_V}`;
 const SCREENS = [
   { id: "onboarding", img: v("assets/onboarding.png"), label: "Onboarding",
@@ -17,18 +17,18 @@ const SCREENS = [
   { id: "mouthbody", img: v("assets/mouthbody.png"), label: "Mouth-body",
     alt: "Education screen: your gums and your whole body — a diagram linking gums to the heart. 47 percent of adults 30 and older have gum disease. Primary action: see my 20-second fix.",
     hotspots: [
-      { l: 3.0, t: 7.3, w: 19.0, h: 4.0, to: "score", name: "Back to score" },  // hugs the "‹ Back" label (x20 y72 w~60 h19 in the 402×874 art)
+      { l: 2.0, t: 5.8, w: 26.0, h: 6.5, to: "score", name: "Back to score" },  // generous zone around the "‹ Back" label — 44pt-class touch target
       { l: 4.98, t: 84.7, w: 90.0, h: 6.4, to: "today", name: "See my 20-sec fix" },
     ] },
   { id: "breath", img: v("assets/breath.png"), label: "Breath",
     alt: "Breath check screen: result is Fresh, shown as a ring. Primary action: check now.",
     hotspots: [
-      { l: 3.0, t: 7.3, w: 19.0, h: 4.0, to: "score", name: "Back to score" },  // hugs the "‹ Back" label (x20 y72 w~60 h19 in the 402×874 art)
-      { l: 4.98, t: 84.7, w: 90.0, h: 6.4, to: "score", name: "Check now" },
+      { l: 2.0, t: 5.8, w: 26.0, h: 6.5, to: "score", name: "Back to score" },  // generous zone around the "‹ Back" label — 44pt-class touch target
+      { l: 4.98, t: 84.7, w: 90.0, h: 6.4, to: "score", name: "Check now — saves the fresh result to your score" },
     ] },
   { id: "today", img: v("assets/today.png"), label: "Today",
     alt: "Today screen: your daily streak and today's 20-second fix — floss the back-left where your gums flag. Primary action: brush with Max.",
-    hotspots: [{ l: 4.98, t: 45.5, w: 90.0, h: 10.3, to: "breath", name: "Brush with Max" }] },
+    hotspots: [{ l: 4.98, t: 45.5, w: 90.0, h: 10.3, to: "score", name: "Brush with Max — log the routine, back to your score" }] },
 ];
 
 const byId = (id) => SCREENS.find((s) => s.id === id);
@@ -68,7 +68,6 @@ function paint(s) {
     b.className = "hotspot";
     b.style.cssText = `left:${h.l}%;top:${h.t}%;width:${h.w}%;height:${h.h}%`;
     b.setAttribute("aria-label", h.name);
-    b.title = h.name;
     b.addEventListener("click", () => { b.classList.add("tap"); render(h.to); });
     hotEl.appendChild(b);
   });
@@ -90,7 +89,6 @@ function buildRail() {
     const t = document.createElement("button");
     t.className = "thumb";
     t.dataset.id = s.id;
-    t.title = s.label;
     t.setAttribute("aria-label", `Go to ${s.label}`);
     const im = document.createElement("img");
     im.src = s.img; im.alt = ""; im.loading = "lazy";
@@ -122,6 +120,20 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") step(1);
   if (e.key === "ArrowLeft") step(-1);
 });
+
+// A tap/click that misses every hotspot briefly reveals them all — the standard
+// prototype affordance for "the painted UI looks tappable but only these areas are wired".
+const screenEl = document.querySelector(".phone__screen");
+let revealT = 0;
+if (screenEl) {
+  screenEl.addEventListener("click", (e) => {
+    if (e.target.closest(".hotspot")) return;
+    if (revealT) clearTimeout(revealT);
+    const spots = hotEl.querySelectorAll(".hotspot");
+    spots.forEach((b) => b.classList.add("reveal"));
+    revealT = setTimeout(() => { spots.forEach((b) => b.classList.remove("reveal")); revealT = 0; }, 650);
+  });
+}
 
 // Subtle 3D pointer tilt on the phone (pointer devices only, respects reduced-motion)
 const frame = document.querySelector(".phone__frame");
