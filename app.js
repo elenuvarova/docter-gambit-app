@@ -58,7 +58,7 @@ function paint(s) {
   if (stepEl) stepEl.textContent = String(idx + 1).padStart(2, "0") + " / " + String(order.length).padStart(2, "0");
   if (snameEl) snameEl.textContent = s.label;
   // single, atomic announcement for screen readers (the visual step/name is just chrome)
-  if (liveEl) liveEl.textContent = `Screen ${idx + 1} of ${order.length}: ${s.label}`;
+  if (liveEl) liveEl.textContent = `Screen ${idx + 1} of ${order.length}: ${s.label}. ${s.alt || ""}`;
   hotEl.setAttribute("role", "group");
   hotEl.setAttribute("aria-label", `Actions on the ${s.label} screen`);
   const hadFocus = hotEl.contains(document.activeElement); // rebuilding drops focus to <body> otherwise
